@@ -36,4 +36,14 @@ $ slcli vs credentials 63000755
 $ ssh root@198.23.88.164
 ```
 
+#### Change the DNS in each node
+
+```
+# vi /etc/hosts
+
+127.0.0.1 localhost.localdomain localhost
+198.23.88.164 hdfs1.hadoop.mids.lulz.bz hdfs1
+198.23.82.40  hdfs2.hadoop.mids.lulz.bz hdfs2
+198.23.88.165 hdfs3.hadoop.mids.lulz.bz hdfs3
+```
 
