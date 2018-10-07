@@ -371,6 +371,9 @@ http://master-ip:19888/jobhistory (for Job History Server) [might not work unles
 <img src="img/cluster.png" width="600"></p>
 <p align="center">Figure 2. Cluster Control</p>
 
+# Next Step to run Terasort
+
+
 
 
 
