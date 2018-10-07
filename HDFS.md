@@ -173,6 +173,133 @@ export YARN_HOME=$HADOOP_HOME
 export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ```
 
+Activate the bash_profile
+```
+# source ~/.bash_profile
+```
+Check the java version
+```
+$ $JAVA_HOME/bin/java -version
+
+openjdk version "1.8.0_181"
+OpenJDK Runtime Environment (build 1.8.0_181-b13)
+OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
+```
+
+## Hadoop Configuration Setup
+
+```
+# cd $HADOOP_HOME/etc/hadoop
+# echo "export JAVA_HOME=\"$JAVA_HOME\"" > ./hadoop-env.sh
+```
+There are 4 xml files we will be updating.  
+- core-site.xml 
+- yarn-site.xml 
+- mapred-site.xml.template 
+- hdfs-site.xml 
+
+After all those configurations setup, we will copy them into other 2 hdfs nodes. 
+
+#### 1. core-site.xml
+```
+# vi core-site.xml
+
+  <?xml version="1.0"?>
+  <configuration>
+    <property>
+      <name>fs.defaultFS</name>
+      <value>hdfs://master/</value>
+    </property>
+  </configuration>
+```
+
+#### 2. yarn-site.xml
+```
+vi yarn-site.xml
+
+  <?xml version="1.0"?>
+  <configuration>
+    <property>
+      <name>yarn.resourcemanager.hostname</name>
+      <value>master</value>
+    </property>
+    <property>
+      <name>yarn.nodemanager.aux-services</name>
+      <value>mapreduce_shuffle</value>
+    </property>
+  </configuration>
+```
+If you want to use priviate IP for your cluster, 
+```
+      <property>
+       <name>yarn.resourcemanager.bind-host</name>
+       <value>0.0.0.0</value>
+      </property>
+```
+If you're using 2CPU/4G node, you add this property to yarn-site.xml as well.
+```
+     <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>2</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>4096</value>
+    </property>
+```
+#### 3. mapred-site.xml.template
+
+```
+vi mapred-site.xml.template
+
+  <?xml version="1.0"?>
+  <configuration>
+    <property>
+      <name>mapreduce.framework.name</name>
+      <value>yarn</value>
+    </property>
+  </configuration>
+```
+
+#### 4. hdfs-site.xml
+```
+vi hdfs-site.xml
+
+  <?xml version="1.0"?>
+  <configuration>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///data/datanode</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///data/namenode</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.checkpoint.dir</name>
+        <value>file:///data/namesecondary</value>
+    </property>
+  </configuration>
+```
+
+##### Copy all configuration files to other hdfs nodes
+```
+# rsync -a /usr/local/hadoop/etc/hadoop/* hadoop@hdfs1:/usr/local/hadoop/etc/hadoop/
+# rsync -a /usr/local/hadoop/etc/hadoop/* hadoop@hdfs2:/usr/local/hadoop/etc/hadoop/
+```
+Change the nodes information in `slaves` file. Remove anything in there. 
+```
+# vi slaves
+
+hdfs1
+hdfs2
+hdfs3
+```
+
+
+
 
 
 
