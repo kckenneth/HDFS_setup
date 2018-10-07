@@ -107,4 +107,75 @@ LABEL=SWAP-xvdb1 swap swap    defaults        0 0
 # chmod 1777 /data
 ```
 
+# System Setup
+Install 
+```
+# yum install -y rsync net-tools java-1.8.0-openjdk-devel ftp://fr2.rpmfind.net/linux/Mandriva/devel/cooker/x86_64/media/contrib/release/nmon-14g-1-mdv2012.0.x86_64.rpm
+```
+Setting the user and password. `passwd` will ask you to set the password for the user `hadoop`.
+```
+# adduser hadoop
+# passwd hadoop
+```
+
+Install HDFS and extract in `/usr/local`
+```
+# cd /usr/local
+# curl http://apache.claz.org/hadoop/core/hadoop-2.7.6/hadoop-2.7.6.tar.gz | tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,hadoop,'
+```
+
+To allow permission on each directory. So far we have worked on `/data` and `/usr/local` directory. 
+```
+# chown -R hadoop.hadoop /data
+# chown -R hadoop.hadoop /usr/local/hadoop
+```
+
+### Setting the passwordless between 3 nodes
+
+`ssh-keygen` in hdfs1 will generate `id_rsa` (private) and `id_rsa.pub` (public) keys. You need to copy to other 2 nodes. When asked for password in each node, use the password you set earlier in adduser creation.
+```
+# ssh-keygen
+# for i in hdfs1 hdfs2 hdfs3; do ssh-copy-id $i; done
+```
+If the passwordless functions as expected, you should be able to ssh between each node without password. Test in each node. `Ctrl+d` to log out from the node. 
+```
+# ssh hdfs1
+Ctrl+d
+# ssh hdfs2
+Ctrl+d
+# ssh hdfs3
+Ctrl+d
+```
+
+You now need to define the hadoop path in `~/.bash_profile`. For java path, since we want to export the working path from the system, it's different from other paths export method. You could either do `|grep` line or just copy and paste the path I already retrieved. You can just `cat` all other paths or copy and paste in `~/.bash_profile` from the 2nd export method. 
+
+##### 1. Export Method
+```
+# echo "export JAVA_HOME=\"$(readlink -f $(which javac) | grep -oP '.*(?=/bin)')\"" >> ~/.bash_profile
+# cat <<\EOF >> ~/.bash_profile
+export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+EOF
+```
+
+##### 2. Export Method
+```
+# vi ~/.bash_profile
+
+export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.181-3.b13.el7_5.x86_64"
+export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+```
+
+
+
+
+
+
 
