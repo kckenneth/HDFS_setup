@@ -5,6 +5,10 @@ On HDFS1 node, this will generate a 10GB set and ingest it into the distributed 
 2. terasort 
 3. teravalidate 
 
+`teragen` creates sample data and places it in an output directory. 
+`terasort` runs through the directory and creates the reduced output on an output directory. 
+`teravalidate` ensures that terasort reduced and mapped correctly.
+
 ```
 # cd /usr/local/hadoop/share/hadoop/mapreduce
 # hadoop jar $(ls hadoop-mapreduce-examples-2*.jar) teragen 100000000 /terasort/in
