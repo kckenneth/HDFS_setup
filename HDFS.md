@@ -373,7 +373,7 @@ http://master-ip:19888/jobhistory (for Job History Server) [might not work unles
 
 # Next Step to run Terasort
 
-
+https://github.com/kckenneth/HDFS_setup/blob/master/Terasort.md
 
 
 
