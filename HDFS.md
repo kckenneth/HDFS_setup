@@ -298,10 +298,78 @@ hdfs2
 hdfs3
 ```
 
+# Create HDFS FileSystem
 
+First we will format the namenode before we spin up our cluster. If you format a running cluster, you will lose everthing. 
+```
+# hdfs namenode -format
+```
+On HDFS1 node (assume as Master node)
+```
+# start-dfs.sh
+# start-yarn.sh
+```
+Check the HDFS status
+```
+# hdfs dfsadmin -report
 
+18/10/07 16:36:55 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Configured Capacity: 316664487936 (294.92 GB)
+Present Capacity: 300318064640 (279.69 GB)
+DFS Remaining: 300317990912 (279.69 GB)
+DFS Used: 73728 (72 KB)
+DFS Used%: 0.00%
+Under replicated blocks: 0
+Blocks with corrupt replicas: 0
+Missing blocks: 0
+Missing blocks (with replication factor 1): 0
 
+-------------------------------------------------
+Live datanodes (3):
 
+Name: 198.23.82.40:50010 (hdfs2.hadoop.mids.lulz.bz)
+Hostname: ec2-54-208-77-124.compute-1.amazonaws.com
+Decommission Status : Normal
+Configured Capacity: 105554829312 (98.31 GB)
+DFS Used: 28672 (28 KB)
+Non DFS Used: 62955520 (60.04 MB)
+DFS Remaining: 100106358784 (93.23 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 94.84%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Sun Oct 07 16:47:42 CDT 2018
+....
+....
+```
+Check the YARN status
+```
+# yarn node -list
+```
+# Checking the cluster
+Go to your browser
+To check your cluster, browse to:  
+master IP = 198.23.88.164. Don't change the port. 
+```
+http://master-ip:50070/dfshealth.html
+http://master-ip:8088/cluster
+http://master-ip:19888/jobhistory (for Job History Server) [might not work unless you have job running]
+```
+#### dfshealth.html
+
+<p align="center">
+<img src="img/dfs.png" width="600"></p>
+<p align="center">Figure 1. DFS Health</p>
+
+#### cluster
+
+<p align="center">
+<img src="img/cluster.png" width="600"></p>
+<p align="center">Figure 2. Cluster Control</p>
 
 
 
