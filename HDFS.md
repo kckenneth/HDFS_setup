@@ -1,4 +1,4 @@
-|Title |  GPFS Installation |
+|Title |  HDFS Installation |
 |-----------|----------------------------------|
 |Author | Kenneth Chen |
 |Utility | IBM, Softlayer, HDFS |
