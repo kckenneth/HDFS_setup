@@ -143,7 +143,11 @@ If the passwordless functions as expected, you should be able to ssh between eac
 
 --------------------------
 
-The following keygen setup is what I did. 
+The following keygen setup is what I did. Before we setup keygen, we will login as `hadoop` user as we created earlier. This will change the prompt.
+```
+# su - hadoop
+[hadoop@master ~]$ 
+``
 
 #### Checking nodes communication 
 
