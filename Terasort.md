@@ -13,7 +13,10 @@ To check if there's any file in HDFS
 ```
 # hadoop fs -ls /
 ```
-#### Load teragen
+#### I. Load teragen
+
+Teragen, as the name implies, generates terabytes worth of random data which is to be sorted later in HDFS cluster. It's a kind of benchmarks to test the HDFS cluster system. The generated data will be dropped in the HDFS path you defined, `/terasort/in`. The directory shouldn’t exist in advance and teragen will automatically create the directory defined. If it already exists, teragen will throw an error.
+
 ```
 # cd /usr/local/hadoop/share/hadoop/mapreduce
 # hadoop jar $(ls hadoop-mapreduce-examples-2*.jar) teragen 100000000 /terasort/in
@@ -21,13 +24,13 @@ To check if there's any file in HDFS
 Note 
 In shell commands, `$()` is a command. `${}` is a parameter substitution. So `$(ls ..)` is list of the jar file and run with `hadoop jar` cli command. 
 
-#### Let's sort
+#### II. Let's sort
 This will take minutes. 
 ```
 # hadoop jar $(ls hadoop-mapreduce-examples-2*.jar) terasort /terasort/in /terasort/out
 ```
 
-#### Let's validate
+#### III. Let's validate
 ```
 # hadoop jar $(ls hadoop-mapreduce-examples-2*.jar) teravalidate /terasort/out /terasort/val
 ```
