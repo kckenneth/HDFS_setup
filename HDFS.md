@@ -283,6 +283,41 @@ After all those configurations setup, we will copy them into other 2 hdfs nodes.
 ```
 
 #### 2. yarn-site.xml
+All 
+```
+# vi yarn-site.xml
+
+<?xml version="1.0"?>
+  <configuration>
+    <property>
+      <name>yarn.resourcemanager.hostname</name>
+      <value>master</value>
+    </property>
+    
+    <property>
+      <name>yarn.nodemanager.aux-services</name>
+      <value>mapreduce_shuffle</value>
+    </property>
+    
+    <property>
+       <name>yarn.resourcemanager.bind-host</name>
+       <value>0.0.0.0</value>
+      </property>
+      
+     <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>2</value>
+    </property>
+    
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>4096</value>
+    </property>
+  </configuration>
+```
+------------------
+
+This is in details and explanation of which property we're using. 
 ```
 vi yarn-site.xml
 
@@ -319,7 +354,7 @@ If you're using 2CPU/4G node, you add this property to yarn-site.xml as well.
 #### 3. mapred-site.xml.template
 
 ```
-vi mapred-site.xml.template
+# vi mapred-site.xml.template
 
   <?xml version="1.0"?>
   <configuration>
@@ -328,6 +363,10 @@ vi mapred-site.xml.template
       <value>yarn</value>
     </property>
   </configuration>
+```
+Change the name to `mapred-site.xml`
+```
+# mv mapred-site.xml.template mapred-site.xml
 ```
 
 #### 4. hdfs-site.xml
@@ -375,6 +414,13 @@ First we will format the namenode before we spin up our cluster. If you format a
 # start-dfs.sh
 # start-yarn.sh
 ```
+Note  
+To stop the HDFS node or yarn
+```
+# stop-dfs.sh
+# stop-yarn.shm
+```
+
 Check the HDFS status
 ```
 # hdfs dfsadmin -report
