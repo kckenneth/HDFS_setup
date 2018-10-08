@@ -41,10 +41,10 @@ $ ssh root@198.23.88.164
 ```
 # vi /etc/hosts
 
-127.0.0.1     localhost.localdomain localhost
-198.23.88.164 hdfs1.hadoop.mids.lulz.bz hdfs1
-198.23.82.40  hdfs2.hadoop.mids.lulz.bz hdfs2
-198.23.88.165 hdfs3.hadoop.mids.lulz.bz hdfs3
+127.0.0.1      localhost.localdomain localhost
+198.23.82.41   master.hadoop.mids.lulz.bz hdfs1
+198.23.82.40   slave1.hadoop.mids.lulz.bz hdfs2
+198.23.82.38   slave2.hadoop.mids.lulz.bz hdfs3
 ```
 
 Check disks and which is a mounted disk
