@@ -132,6 +132,7 @@ To allow permission on each directory. So far we have worked on `/data` and `/us
 
 ### Setting the passwordless between 3 nodes
 
+------ # Optional --------
 `ssh-keygen` in hdfs1 will generate `id_rsa` (private) and `id_rsa.pub` (public) keys. You need to copy to other 2 nodes. When asked for password in each node, use the password you set earlier in adduser creation.
 ```
 # ssh-keygen
@@ -146,7 +147,81 @@ Ctrl+d
 # ssh hdfs3
 Ctrl+d
 ```
+--------------------------
 
+This is what I did. 
+
+#### Checking nodes communication 
+
+Now we're going to check all nodes communication without password. So the idea is create the ssh-keygen in one node, which will generate private and public key. Make sure you'd use id_rsa. Not other customized names which doesn't work as expected. 
+
+```
+# ssh-keygen -f ~/.ssh/id_rsa -b 2048 -t rsa 
+# cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
+# chmod 600 ~/.ssh/authorized_keys
+```
+
+You now copy all files in the `.ssh` directory:  
+- authorized_keys  
+- id_rsa  
+- id_rsa.pub  
+to all nodes in the cluster. We have 3 nodes set up in our cluster. So we need to copy all files into the other 2 nodes. 
+
+```
+# scp ~/.ssh/* root@198.23.82.40:/root/.ssh/
+# scp ~/.ssh/* root@198.23.82.38:/root/.ssh/
+```
+You open 3 individual terminals. In each terminal, ssh into individual nodes and check if those scp works from master node. After all done, try this from each node (each terminal). You'll be sshing from master to slave1. It doesn't matter. We want to add the information into known_hosts. You'll do those in other two terminals as well. 
+```
+# ssh master
+yes
+exit
+# ssh slave1
+yes
+exit
+# ssh slave2
+yes 
+exit
+```
+After you're done, make sure they work. Now in master node (terminal), 
+```
+# vi test.sh
+```
+Copy the following script
+```
+#!/bin/bash
+
+# Edit node list
+nodes="master slave1 slave2"
+
+# Test ssh configuration
+for i in $nodes
+do for j in $nodes
+ do echo -n "Testing ${i} to ${j}: "
+ ssh  ${i} "ssh ${j} date"
+ done
+done
+```
+Change to executable mode 
+```
+# chmod 755 test.sh
+```
+run the script. If all nodes communicate without password (In order for GPFS to work, each node must communicate passwordless), you'd see your script works. If nodes communication fails, you'd see some errors here. 
+```
+# ./test.sh
+root@gpfs1:~# ./test.sh
+Testing master to master: Sun Oct  7 20:12:43 CDT 2018
+Testing master to slave1: Sun Oct  7 20:12:44 CDT 2018
+Testing master to slave2: Sun Oct  7 20:12:45 CDT 2018
+Testing slave1 to master: Sun Oct  7 20:12:45 CDT 2018
+Testing slave1 to slave1: Sun Oct  7 20:12:46 CDT 2018
+Testing slave1 to slave2: Sun Oct  7 20:12:47 CDT 2018
+Testing slave2 to master: Sun Oct  7 20:12:47 CDT 2018
+Testing slave2 to slave1: Sun Oct  7 20:12:48 CDT 2018
+Testing slave2 to slave2: Sun Oct  7 20:12:49 CDT 2018
+```
+
+### Export Path
 You now need to define the hadoop path in `~/.bash_profile`. For java path, since we want to export the working path from the system, it's different from other paths export method. You could either do `|grep` line or just copy and paste the path I already retrieved. You can just `cat` all other paths or copy and paste in `~/.bash_profile` from the 2nd export method. 
 
 ##### 1. Export Method
