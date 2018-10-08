@@ -132,21 +132,15 @@ To allow permission on each directory. So far we have worked on `/data` and `/us
 
 ### Setting the passwordless between 3 nodes
 
------- # Optional --------
+-------------------------
+##### Suggested setup which I found not working well
 `ssh-keygen` in hdfs1 will generate `id_rsa` (private) and `id_rsa.pub` (public) keys. You need to copy to other 2 nodes. When asked for password in each node, use the password you set earlier in adduser creation.
 ```
 # ssh-keygen
 # for i in hdfs1 hdfs2 hdfs3; do ssh-copy-id $i; done
 ```
 If the passwordless functions as expected, you should be able to ssh between each node without password. Test in each node. `Ctrl+d` to log out from the node. 
-```
-# ssh hdfs1
-Ctrl+d
-# ssh hdfs2
-Ctrl+d
-# ssh hdfs3
-Ctrl+d
-```
+
 --------------------------
 
 This is what I did. 
