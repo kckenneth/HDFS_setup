@@ -143,7 +143,7 @@ If the passwordless functions as expected, you should be able to ssh between eac
 
 --------------------------
 
-This is what I did. 
+The following keygen setup is what I did. 
 
 #### Checking nodes communication 
 
