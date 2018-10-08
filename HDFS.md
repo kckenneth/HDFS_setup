@@ -133,21 +133,22 @@ To allow permission on each directory. So far we have worked on `/data` and `/us
 ### Setting the passwordless between 3 nodes
 
 -------------------------
-##### Suggested setup which I found not working well
-`ssh-keygen` in hdfs1 will generate `id_rsa` (private) and `id_rsa.pub` (public) keys. You need to copy to other 2 nodes. When asked for password in each node, use the password you set earlier in adduser creation.
-```
-# ssh-keygen
-# for i in hdfs1 hdfs2 hdfs3; do ssh-copy-id $i; done
-```
-If the passwordless functions as expected, you should be able to ssh between each node without password. Test in each node. `Ctrl+d` to log out from the node. 
-
---------------------------
-
+##### Suggested setup 
+You must log in as `hadoop` user you created earlier. 
 The following keygen setup is what I did. Before we setup keygen, we will login as `hadoop` user as we created earlier. This will change the prompt.
 ```
 # su - hadoop
 [hadoop@master ~]$ 
-``
+```
+
+`ssh-keygen` in hdfs1 will generate `id_rsa` (private) and `id_rsa.pub` (public) keys. You need to copy to other 2 nodes. When asked for password in each node, use the password you set earlier in adduser creation.
+```
+# ssh-keygen
+# for i in master slave1 slave2; do ssh-copy-id $i; done
+```
+It will keep asking you password when log into other slave nodes. Type the password you set earlier when created `hadoop` user. If the passwordless functions as expected, you should be able to ssh between each node without password. Test in each node. `Ctrl+d` to log out from the node. 
+
+--------------------------
 
 #### Checking nodes communication 
 
@@ -187,18 +188,7 @@ After you're done, make sure they work. Now in master node (terminal),
 ```
 Copy the following script
 ```
-#!/bin/bash
-
-# Edit node list
-nodes="master slave1 slave2"
-
-# Test ssh configuration
-for i in $nodes
-do for j in $nodes
- do echo -n "Testing ${i} to ${j}: "
- ssh  ${i} "ssh ${j} date"
- done
-done
+ch
 ```
 Change to executable mode 
 ```
@@ -262,7 +252,7 @@ OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
 ## Hadoop Configuration Setup 
 
 ```
-# cd $HADOOP_HOME/etc/hadoop
+# cd $HADOOP_HOME/etc/hadoop      (Similar to /usr/local/hadoop/etc/hadoop)
 # echo "export JAVA_HOME=\"$JAVA_HOME\"" > ./hadoop-env.sh
 ```
 There are 4 xml files we will be updating.  
