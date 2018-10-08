@@ -1,6 +1,11 @@
+# Continuing from HDFS Setup
+
+https://github.com/kckenneth/HDFS_setup/blob/master/HDFS.md
+
 # Terasort
 
-On HDFS1 node, this will generate a 10GB set and ingest it into the distributed filesystem. The input to teragen is the number of 100 byte rows. There are three commands you need to be familiar with tera.  
+On master node, this will generate a 10GB set and ingest it into the distributed filesystem. The input to teragen is the number of 100 byte rows. There are three commands you need to be familiar with tera.  
+
 1. teragen 
 2. terasort 
 3. teravalidate 
@@ -13,7 +18,7 @@ To check if there's any file in HDFS
 ```
 # hadoop fs -ls /
 ```
-#### I. Load teragen
+#### I. Load teragen (on master node)
 
 Teragen, as the name implies, generates terabytes worth of random data which is to be sorted later in HDFS cluster. It's a kind of benchmarks to test the HDFS cluster system. The generated data will be dropped in the HDFS path you defined, `/terasort/in`. The directory shouldn’t exist in advance and teragen will automatically create the directory defined. If it already exists, teragen will throw an error.
 
