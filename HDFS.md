@@ -249,7 +249,7 @@ OpenJDK Runtime Environment (build 1.8.0_181-b13)
 OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
 ```
 
-## Hadoop Configuration Setup 
+## Hadoop Configuration Setup (on master node first)
 
 ```
 # cd $HADOOP_HOME/etc/hadoop      (Similar to /usr/local/hadoop/etc/hadoop)
