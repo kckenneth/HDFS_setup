@@ -6,7 +6,11 @@
 
 # HDFS Setup
 
-Setup 3 virtual servers in the cloud. 
+Setup 3 virtual servers in the cloud.  
+- 2 CPU 
+- 4 GB RAM 
+- 2 local disks: 25GB and 100 GB (100GB for HDFS setup later)
+
 ```
 $ slcli vs create --datacenter=sjc01 --hostname=master --domain=mids.com --billing=hourly --cpu=2 --memory=4096 --disk=25 --disk=100 --network=1000 --os=CENTOS_LATEST_64
 $ slcli vs create --datacenter=sjc01 --hostname=slave1 --domain=mids.com --billing=hourly --cpu=2 --memory=4096 --disk=25 --disk=100 --network=1000 --os=CENTOS_LATEST_64
