@@ -17,6 +17,8 @@ On master node, this will generate a 10GB set and ingest it into the distributed
 To check if there's any file in HDFS
 ```
 # hadoop fs -ls /
+
+18/10/12 05:55:22 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
 ```
 #### I. Load teragen (on master node)
 
