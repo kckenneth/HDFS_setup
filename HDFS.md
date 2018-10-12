@@ -22,9 +22,9 @@ $ slcli vs list
 :..........:..........:...............:..............:............:........:
 :    id    : hostname :   primary_ip  :  backend_ip  : datacenter : action :
 :..........:..........:...............:..............:............:........:
-: 63307761 :  master  :  50.23.91.123 : 10.53.47.43  :   sjc01    :   -    :
-: 63307767 :  slave1  : 50.97.252.101 : 10.53.47.46  :   sjc01    :   -    :
-: 63307955 :  slave2  : 198.23.88.164 : 10.91.105.18 :   sjc01    :   -    :
+: 63328251 :  master  : 198.23.88.164 : 10.91.105.18 :   sjc01    :   -    :
+: 63328259 :  slave1  : 50.97.252.101 : 10.53.47.43  :   sjc01    :   -    :
+: 63328265 :  slave2  : 198.23.88.165 : 10.91.105.22 :   sjc01    :   -    :
 :..........:..........:...............:..............:............:........:
 ```
 Open 3 separate terminals to ssh into 3 vs. Make sure you got the passwords for each vs by calling 
@@ -46,9 +46,9 @@ $ ssh root@198.23.88.164
 # vi /etc/hosts
 
 127.0.0.1      localhost.localdomain localhost
-50.23.91.123   master.hadoop.mids.lulz.bz master
+198.23.88.164   master.hadoop.mids.lulz.bz master
 50.97.252.101   slave1.hadoop.mids.lulz.bz slave1
-198.23.88.164   slave2.hadoop.mids.lulz.bz slave2
+198.23.88.165   slave2.hadoop.mids.lulz.bz slave2
 ```
 
 Check disks and which is a mounted disk
@@ -299,7 +299,7 @@ All
     
     <property>
        <name>yarn.resourcemanager.bind-host</name>
-       <value>0.0.0.0</value>
+       <value>10.91.105.18</value>
       </property>
       
      <property>
@@ -313,6 +313,7 @@ All
     </property>
   </configuration>
 ```
+REQUIRED: use you private IPs for your cluster, add this property also (where 0.0.0.0 must be the private IP of the master node)
 ------------------
 
 This is in details and explanation of which property we're using. 
@@ -416,7 +417,7 @@ Note
 To stop the HDFS node or yarn
 ```
 # stop-dfs.sh
-# stop-yarn.shm
+# stop-yarn.sh
 ```
 
 Check the HDFS status
@@ -471,7 +472,7 @@ ec2-54-208-77-124.compute-1.amazonaws.com:44917	        RUNNING	ec2-54-208-77-12
 # Checking the cluster
 Go to your browser
 To check your cluster, browse to:  
-master IP = `50.23.91.123`. Don't change the port. 
+master IP = `198.23.88.164`. Don't change the port. 
 ```
 http://master-ip:50070/dfshealth.html
 http://master-ip:8088/cluster
@@ -488,6 +489,19 @@ http://master-ip:19888/jobhistory (for Job History Server) [might not work unles
 <p align="center">
 <img src="img/cluster.png" width="600"></p>
 <p align="center">Figure 2. Cluster Control</p>
+
+### Checking the java
+
+Log files are located under `$HADOOP_HOME/logs`. You can check the java services running once your cluster is running using `jps`.
+```
+# jps
+
+28627 ResourceManager
+28134 NameNode
+28733 NodeManager
+29230 Jps
+28431 SecondaryNameNode
+```
 
 # Next Step to run Terasort
 
