@@ -125,7 +125,7 @@ Setting the user and password. `passwd` will ask you to set the password for the
 Install HDFS and extract in `/usr/local`
 ```
 # cd /usr/local
-# curl http://apache.claz.org/hadoop/core/hadoop-2.7.6/hadoop-2.7.6.tar.gz | tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,hadoop,'
+# curl http://apache.claz.org/hadoop/core/hadoop-2.9.1/hadoop-2.9.1.tar.gz| tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,hadoop,'
 ```
 
 To allow permission on each directory. So far we have worked on `/data` and `/usr/local` directory. 
