@@ -22,9 +22,9 @@ $ slcli vs list
 :..........:..........:...............:..............:............:........:
 :    id    : hostname :   primary_ip  :  backend_ip  : datacenter : action :
 :..........:..........:...............:..............:............:........:
-: 63010091 :  master  :  198.23.82.41 : 10.91.105.22 :   sjc01    :   -    :
-: 63010111 :  slave1  :  198.23.82.40 : 10.91.105.18 :   sjc01    :   -    :
-: 63010119 :  slave2  :  198.23.82.38 : 10.91.105.41 :   sjc01    :   -    :
+: 63307761 :  master  :  50.23.91.123 : 10.53.47.43  :   sjc01    :   -    :
+: 63307767 :  slave1  : 50.97.252.101 : 10.53.47.46  :   sjc01    :   -    :
+: 63307955 :  slave2  : 198.23.88.164 : 10.91.105.18 :   sjc01    :   -    :
 :..........:..........:...............:..............:............:........:
 ```
 Open 3 separate terminals to ssh into 3 vs. Make sure you got the passwords for each vs by calling 
@@ -46,9 +46,9 @@ $ ssh root@198.23.88.164
 # vi /etc/hosts
 
 127.0.0.1      localhost.localdomain localhost
-198.23.82.41   master.hadoop.mids.lulz.bz master
-198.23.82.40   slave1.hadoop.mids.lulz.bz slave1
-198.23.82.38   slave2.hadoop.mids.lulz.bz slave2
+50.23.91.123   master.hadoop.mids.lulz.bz master
+50.97.252.101   slave1.hadoop.mids.lulz.bz slave1
+198.23.88.164   slave2.hadoop.mids.lulz.bz slave2
 ```
 
 Check disks and which is a mounted disk
@@ -471,7 +471,7 @@ ec2-35-169-58-188.compute-1.amazonaws.com:37891	        RUNNING	ec2-35-169-58-18
 # Checking the cluster
 Go to your browser
 To check your cluster, browse to:  
-master IP = 198.23.82.41. Don't change the port. 
+master IP = `50.23.91.123`. Don't change the port. 
 ```
 http://master-ip:50070/dfshealth.html
 http://master-ip:8088/cluster
