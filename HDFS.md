@@ -460,13 +460,13 @@ Check the YARN status
 ```
 # yarn node -list
 
-18/10/07 20:33:33 INFO client.RMProxy: Connecting to ResourceManager at master/198.23.82.41:8032
-18/10/07 20:33:33 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+18/10/12 05:53:31 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+18/10/12 05:53:32 INFO client.RMProxy: Connecting to ResourceManager at master/50.23.91.123:8032
 Total Nodes:3
          Node-Id	     Node-State	Node-Http-Address	Number-of-Running-Containers
-ec2-54-208-77-124.compute-1.amazonaws.com:33276	        RUNNING	ec2-54-208-77-124.compute-1.amazonaws.com:8042	                           0
-ec2-35-169-58-188.compute-1.amazonaws.com:36815	        RUNNING	ec2-35-169-58-188.compute-1.amazonaws.com:8042	                           0
-ec2-35-169-58-188.compute-1.amazonaws.com:37891	        RUNNING	ec2-35-169-58-188.compute-1.amazonaws.com:8042	                           0
+ec2-35-169-58-188.compute-1.amazonaws.com:40476	        RUNNING	ec2-35-169-58-188.compute-1.amazonaws.com:8042	                           0
+ec2-35-169-58-188.compute-1.amazonaws.com:42658	        RUNNING	ec2-35-169-58-188.compute-1.amazonaws.com:8042	                           0
+ec2-54-208-77-124.compute-1.amazonaws.com:44917	        RUNNING	ec2-54-208-77-124.compute-1.amazonaws.com:8042	                           0
 ```
 # Checking the cluster
 Go to your browser
