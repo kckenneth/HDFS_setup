@@ -192,7 +192,18 @@ After you're done, make sure they work. Now in master node (terminal),
 ```
 Copy the following script
 ```
-ch
+#!/bin/bash
+
+# Edit node list
+nodes="master slave1 slave2"
+
+# Test ssh configuration
+for i in $nodes
+do for j in $nodes
+ do echo -n "Testing ${i} to ${j}: "
+ ssh  ${i} "ssh ${j} date"
+ done
+done
 ```
 Change to executable mode 
 ```
