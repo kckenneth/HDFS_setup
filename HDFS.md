@@ -122,7 +122,7 @@ Setting the user and password. `passwd` will ask you to set the password for the
 # passwd hadoop
 ```
 
-Install HDFS and extract in `/usr/local`
+Install Hadoop and extract in `/usr/local`
 ```
 # cd /usr/local
 # curl http://apache.claz.org/hadoop/core/hadoop-2.9.1/hadoop-2.9.1.tar.gz| tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,hadoop,'
