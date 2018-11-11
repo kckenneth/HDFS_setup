@@ -324,7 +324,7 @@ All
     </property>
   </configuration>
 ```
-REQUIRED: use you private IPs for your cluster, add this property also (where 0.0.0.0 must be the private IP of the master node)
+REQUIRED: use your private IPs for your cluster, add this property also (where 0.0.0.0 must be the private IP of the master node). Don't use the private or public IP. Just use `0.0.0.0` so that you can connect to `master-IP:8088` by Yarn. 
 ------------------
 
 This is in details and explanation of which property we're using. 
